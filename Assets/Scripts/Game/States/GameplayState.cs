@@ -1,4 +1,5 @@
 using TowerDefence.Core;
+using TowerDefence.GameObjects;
 using TowerDefence.Systems;
 using TowerDefence.UI;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace TowerDefence.Game
 {
     public class GameplayState : IState
     {
+        private IInputService _inputService;
         private IEventBus _eventBus;
         private IEventToken _pauseToken;
         private IEventToken _resumeToken;
@@ -16,6 +18,7 @@ namespace TowerDefence.Game
         public async void OnEnter()
         {
             var screenRouter = Services.Get<IScreenRouter>();
+            _inputService = Services.Get<IInputService>();
             screenRouter.Clear();
 
             _eventBus = Services.Get<IEventBus>();
@@ -23,6 +26,8 @@ namespace TowerDefence.Game
             _resumeToken = _eventBus.Subscribe<ResumeGameRequestedEvent>(OnResumeRequested);
             _gameOverToken = _eventBus.Subscribe<GameOverEvent>(OnGameOver);
             _returnToMenuToken = _eventBus.Subscribe<ReturnToMenuRequestedEvent>(OnReturnToMenu);
+
+            _inputService.OnTap += HandleTapOnScreen;
 
             var uiRegistry = Services.Get<IUIRegistry>();
             if (uiRegistry.TryGetScreen<IScreen>("GameplayHUD", out var hud))
@@ -46,6 +51,8 @@ namespace TowerDefence.Game
             if (_resumeToken != null) _eventBus.Unsubscribe(_resumeToken);
             if (_gameOverToken != null) _eventBus.Unsubscribe(_gameOverToken);
             if (_returnToMenuToken != null) _eventBus.Unsubscribe(_returnToMenuToken);
+
+            _inputService.OnTap -= HandleTapOnScreen;
         }
 
         public void Tick(float deltaTime){}
@@ -84,6 +91,16 @@ namespace TowerDefence.Game
 
             var stateMachine = Services.Get<IStateMachine>();
             stateMachine.SetState(new MenuState());
+        }
+
+        private void HandleTapOnScreen(Vector2 screenPosition)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                var clickable = hit.collider.GetComponent<IClickable>();
+                clickable?.Click();
+            }
         }
     }
 }

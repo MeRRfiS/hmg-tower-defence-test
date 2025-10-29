@@ -18,7 +18,7 @@ namespace TowerDefence.Core
         }
 
         private readonly Dictionary<Type, List<Delegate>> _subscribers = new Dictionary<Type, List<Delegate>>();
-        private readonly List<Delegate> _invokeBuffer = new List<Delegate>();
+        private readonly Dictionary<Type, List<Delegate>> _invokeBuffer = new Dictionary<Type, List<Delegate>>();
 
         public void Init()
         {
@@ -68,11 +68,16 @@ namespace TowerDefence.Core
             {
                 return;
             }
+            
+            if(!_invokeBuffer.TryGetValue(eventType, out var buffer))
+            {
+                _invokeBuffer[eventType] = new List<Delegate>();
+            }
 
-            _invokeBuffer.Clear();
-            _invokeBuffer.AddRange(handlers);
+            _invokeBuffer[eventType].Clear();
+            _invokeBuffer[eventType].AddRange(handlers);
 
-            foreach (var handler in _invokeBuffer)
+            foreach (var handler in _invokeBuffer[eventType])
             {
                 try
                 {
@@ -84,7 +89,7 @@ namespace TowerDefence.Core
                 }
             }
 
-            _invokeBuffer.Clear();
+            _invokeBuffer[eventType].Clear();
         }
 
         public void Clear()

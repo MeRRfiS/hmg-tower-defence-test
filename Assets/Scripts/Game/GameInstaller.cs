@@ -1,3 +1,4 @@
+using TowerDefence.Characters;
 using TowerDefence.Core;
 using TowerDefence.Data;
 using TowerDefence.Systems;
@@ -18,6 +19,9 @@ namespace TowerDefence.Game
             services.RegisterLazy<IScreenRouter, ScreenRouter>();
             services.RegisterLazy<IUIRegistry, UIRegistry>();
             services.RegisterLazy<IGameContext, GameContext>();
+            services.RegisterLazy<ICharacterService, CharacterService>();
+            services.RegisterLazy<IFormationService, FormationService>();
+            services.RegisterLazy<IGameStatsService, GameStatsService>();
         }
     }
 }

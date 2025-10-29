@@ -4,6 +4,8 @@ namespace TowerDefence.Characters
     {
         public MoveAndSearchState(Character character): base(character) { }
 
+        public override void OnEnter() { }
+
         public override void Tick(float deltaTime)
         {
             Character.Agent.SetDestination(Character.FormationPosition);

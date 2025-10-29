@@ -6,7 +6,8 @@ namespace TowerDefence.Characters
         public int Damage { get; set; }
         public float DurationBetweenAttacks { get; set; }
         public float Speed  { get; set; }
-        public float Range { get; set; }
+        public float MinRange { get; set; }
+        public float MaxRange { get; set; }
         public float DetectionRadius { get; set; }
 
         public CharacterModel(CharacterConfig config)
@@ -15,7 +16,8 @@ namespace TowerDefence.Characters
             Damage = config.Damage;
             DurationBetweenAttacks = config.DurationBetweenAttacks;
             Speed = config.Speed;
-            Range = config.Range;
+            MinRange = config.MinRange;
+            MaxRange = config.MaxRange;
             DetectionRadius = config.DetectionRadius;
         }
     }

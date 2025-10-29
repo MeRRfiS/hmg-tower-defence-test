@@ -12,7 +12,10 @@ namespace TowerDefence.Characters
             Character = character;
         }
 
-        public void OnEnter() { }
+        public virtual void OnEnter() 
+        {
+            Character.Agent.ResetPath();
+        }
 
         public void OnExit() { }
 
@@ -29,11 +32,11 @@ namespace TowerDefence.Characters
 
             if(formation != null)
             {
-                formationService.SetStateForAllMembers(formation, new AttackState(Character, target));
+                formationService.SetStateForAllMembers(formation, new MoveAndAttackState(Character, target));
                 return;
             }
 
-            characterService.SetState(Character, new AttackState(Character, target));
+            characterService.SetState(Character, new MoveAndAttackState(Character, target));
         }
 
         public virtual ICharacterState Clone()

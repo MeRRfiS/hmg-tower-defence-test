@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefence.Characters.CharacterConfig
   _health: 50
   _damage: 5
-  _durationBetweenAttacks: 1
+  _durationBetweenAttacks: 0.3
   _speed: 5
-  _range: 1.5
+  _minRange: 1.5
+  _maxRange: 1.5
   _detectionRadius: 5

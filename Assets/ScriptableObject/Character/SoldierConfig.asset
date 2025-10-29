@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c51aabf6d8e45a4487e1f1fa48b45aa, type: 3}
   m_Name: SoldierConfig
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefence.Characters.CharacterConfig
-  _type: 0
   _health: 40
   _damage: 5
+  _durationBetweenAttacks: 0.3
   _speed: 5
-  _range: 1.5
+  _minRange: 1.5
+  _maxRange: 1.5
+  _detectionRadius: 5

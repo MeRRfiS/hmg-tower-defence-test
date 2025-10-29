@@ -353,6 +353,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4912889288218500934, guid: 3471147a38478ce48ac4ce280a73e104, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5708341242590086483, guid: 3471147a38478ce48ac4ce280a73e104, type: 3}
       propertyPath: m_Name
       value: Archer

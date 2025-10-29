@@ -6,6 +6,7 @@ namespace TowerDefence.Characters
 {
     public class Formation : MonoBehaviour
     {
+        // In future add members to formation after create character by player 
         [SerializeField] private List<Character> _members = new();
 
         private void Awake()
